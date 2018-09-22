@@ -7,31 +7,40 @@ class BinConverter {
         if (x < 0) {
             negative(x, binaryStringBuilder);
         } else {
-            positive(x, binaryStringBuilder);
-
-            int numberOfZerosToInsert = 8 - binaryStringBuilder.length();
-            for (int i = 0; i < numberOfZerosToInsert; i++) {
-                binaryStringBuilder.append(0);
-            }
+            positive(x, binaryStringBuilder, false);
         }
         return binaryStringBuilder.reverse().toString();
     }
 
-    private static void negative(int x, StringBuilder binaryStringBuilder) {
-        int positiveNumberToCalculate = x + 128;
-        positive(positiveNumberToCalculate, binaryStringBuilder);
+    private static void fillRemainingBits(StringBuilder binaryStringBuilder, boolean isPositiveNumber) {
+        int numberOfZerosToInsert = 8 - binaryStringBuilder.length();
+        if(!isPositiveNumber) {
+            numberOfZerosToInsert--;
+        }
 
-        int numberOfZerosToInsert = 7 - binaryStringBuilder.length();
         for (int i = 0; i < numberOfZerosToInsert; i++) {
             binaryStringBuilder.append(0);
         }
-        binaryStringBuilder.append(1);
+
+        if(!isPositiveNumber) {
+            binaryStringBuilder.append(1); // MSB
+        }
     }
 
-    private static void positive(int x, StringBuilder binaryStringBuilder) {
+    private static void negative(int x, StringBuilder binaryStringBuilder) {
+        int positiveNumberToCalculate = x + 128;
+        positive(positiveNumberToCalculate, binaryStringBuilder, true);
+        fillRemainingBits(binaryStringBuilder, false);
+    }
+
+    private static void positive(int x, StringBuilder binaryStringBuilder, boolean calledFromNegative) {
         while (x != 0) {
             binaryStringBuilder.append(x % 2);
             x = x / 2;
+        }
+
+        if(!calledFromNegative) {
+            fillRemainingBits(binaryStringBuilder, true);
         }
     }
 
