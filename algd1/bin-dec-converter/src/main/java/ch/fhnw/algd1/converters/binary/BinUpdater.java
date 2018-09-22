@@ -31,9 +31,9 @@ public class BinUpdater implements Updater<Integer> {
 	public void update(Integer val) {
 		try {
 			if (val >= min && val <= max) {
-				String s = BinConverter.toString(val);
+				String s = BinConverter.toBinaryString(val);
 				if (s.length() != nofBits) throw new Exception(
-						"Result of BinConverter.toString must have length " + nofBits
+						"Result of BinConverter.toBinaryString must have length " + nofBits
 								+ " but has " + s.length());
 				((PlainDocument)doc).replace(0, doc.getLength(), s, doc
 						.getDefaultRootElement().getAttributes());

@@ -1,2 +1,3 @@
-.idea/
-fprog/
+**/out/
+**/.idea/
+**/.gradle/
