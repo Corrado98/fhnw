@@ -24,7 +24,7 @@ public class BinDocListener extends AbstractDocListener<Integer> {
 		try {
 			final Document doc = e.getDocument();
 			if (e.getType() != EventType.REMOVE && doc.getLength() > 0) {
-				final int x = BinConverter.parseBinString(doc.getText(0, doc.getLength()));
+				final int x = BinConverter.parseBinaryString(doc.getText(0, doc.getLength()));
 				updateModel(e, x);
 			}
 		}

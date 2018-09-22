@@ -1,8 +1,8 @@
 package ch.fhnw.algd1.converters.binary;
 
 
-public class BinConverter {
-    public static String toBinaryString(int x) {
+class BinConverter {
+    static String toBinaryString(int x) {
         StringBuilder binaryStringBuilder = new StringBuilder();
         if (x < 0) {
             negative(x, binaryStringBuilder);
@@ -35,7 +35,7 @@ public class BinConverter {
         }
     }
 
-    public static int parseBinString(String text) {
+    static int parseBinaryString(String text) {
         // TODO: expect text to contain 8 binary digits, parse to int value in 2-complement
 
         String[] binary = text.split("");
