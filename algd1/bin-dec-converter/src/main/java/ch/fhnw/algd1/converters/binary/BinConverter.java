@@ -36,13 +36,10 @@ class BinConverter {
     }
 
     static int parseBinaryString(String text) {
-        // TODO: expect text to contain 8 binary digits, parse to int value in 2-complement
-
         String[] binary = text.split("");
         int value = 0;
         if (binary[0].equals("1")) {
             value = (int) Math.pow(-2, binary.length - 1); //-2^7
-            System.out.println("Value is " + value);
         }
 
         for (int i = 1; i < binary.length; i++) {
