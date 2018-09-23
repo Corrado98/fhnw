@@ -7,54 +7,33 @@ class BinConverter {
         if (x < 0) {
             negative(x, binaryStringBuilder);
         } else {
-            positive(x, binaryStringBuilder, false);
+            positive(x, binaryStringBuilder);
         }
-        return binaryStringBuilder.reverse().toString();
-    }
-
-    private static void fillRemainingBits(StringBuilder binaryStringBuilder, boolean isPositiveNumber) {
-        int numberOfZerosToInsert = 8 - binaryStringBuilder.length();
-        if(!isPositiveNumber) {
-            numberOfZerosToInsert--;
-        }
-
-        for (int i = 0; i < numberOfZerosToInsert; i++) {
-            binaryStringBuilder.append(0);
-        }
-
-        if(!isPositiveNumber) {
-            binaryStringBuilder.append(1); // MSB
-        }
+        return binaryStringBuilder.reverse()
+            .toString();
     }
 
     private static void negative(int x, StringBuilder binaryStringBuilder) {
-        int positiveNumberToCalculate = x + 128;
-        positive(positiveNumberToCalculate, binaryStringBuilder, true);
-        fillRemainingBits(binaryStringBuilder, false);
+        positive(x + 256, binaryStringBuilder);
     }
 
-    private static void positive(int x, StringBuilder binaryStringBuilder, boolean calledFromNegative) {
-        while (x != 0) {
+    private static void positive(int x, StringBuilder binaryStringBuilder) {
+        while (binaryStringBuilder.length() < 8) {
             binaryStringBuilder.append(x % 2);
             x = x / 2;
-        }
-
-        if(!calledFromNegative) {
-            fillRemainingBits(binaryStringBuilder, true);
         }
     }
 
     static int parseBinaryString(String text) {
         String[] binary = text.split("");
         int value = 0;
-        if (binary[0].equals("1")) {
-            value = (int) Math.pow(-2, binary.length - 1); //-2^7
-        }
-
-        for (int i = 1; i < binary.length; i++) {
+        for (int i = 0; i < binary.length; i++) {
             if (binary[i].equals("1")) {
-                value += Math.pow(2, binary.length - 1 - i);
+                value += 1 << (binary.length - 1- i);
             }
+        }
+        if(value > 127) {
+            value -= 256;
         }
 
         return value;
