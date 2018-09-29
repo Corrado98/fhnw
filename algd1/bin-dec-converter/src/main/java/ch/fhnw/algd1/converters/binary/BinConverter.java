@@ -25,11 +25,10 @@ class BinConverter {
     }
 
     static int parseBinaryString(String text) {
-        String[] binary = text.split("");
         int value = 0;
-        for (int i = 0; i < binary.length; i++) {
-            if (binary[i].equals("1")) {
-                value += 1 << (binary.length - 1- i);
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == '1') {
+                value += 1 << (text.length() - 1- i);
             }
         }
         if(value > 127) {
